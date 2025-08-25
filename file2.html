@@ -212,10 +212,7 @@
     infoTable.appendChild(row);
   }
 
-  function notfiy(){
-    alert("your screenshot sent successfully! click ok and redirected to the telegram for getting app and pdf guide instantly")
-  }
-
+  
   // ==========================
   // Payment Modal Logic
   // ==========================
@@ -253,7 +250,7 @@
 
   function copyAddress() {
     navigator.clipboard.writeText(walletAddress.textContent).then(() => {
-      alert("Copied: " + walletAddress.textContent);
+      document.write="copied"
     });
   }
 
